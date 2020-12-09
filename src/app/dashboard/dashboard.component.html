@@ -1,0 +1,56 @@
+<div class="container">
+
+    <div class="searchBlock">
+        <div class="col-sm-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Sort By</mat-label>
+                <mat-select [(ngModel)]="sortValue" name="sort">
+                    <mat-option *ngFor="let item of sortBy" [value]="item.value">
+                        {{item.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+            <button (click)="openAddTeamDialog()">add team</button>
+            <button (click)="openAddMatchDialog()">add match</button>
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Search By</mat-label>
+                <mat-select [(ngModel)]="searchValue" name="search">
+                    <mat-option *ngFor="let item of searchBy" [value]="item.value">
+                        {{item.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field class="example-form-field">
+                <mat-label>Search</mat-label>
+                <input matInput type="text" [(ngModel)]="searchInput">
+                <button mat-button *ngIf="searchInput" matSuffix mat-icon-button aria-label="Clear" (click)="search()">
+                    <mat-icon>Search</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!-- Position Column -->""
+        <ng-container *ngFor="let item of keyColumns let i=index" [matColumnDef]="item">
+            <th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[item]}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="keyColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: keyColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="pageEvent = $event">
+    </mat-paginator>
+
+</div>

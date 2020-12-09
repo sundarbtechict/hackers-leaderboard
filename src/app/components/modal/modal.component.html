@@ -1,0 +1,53 @@
+<div style="text-align: center" *ngIf="data['mode']=='message'">
+    <h1 mat-dialog-title class="modelTitle">Paring Team</h1>
+    <div mat-dialog-content class="modelContent">
+        <p>{{data['value']}}</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="modelButton" (click)="onNoClick()" cdkFocusInitial>ok</button>
+        <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    </div>
+</div>
+
+
+<div style="text-align: center" *ngIf="data['mode']=='addTeam'">
+    <h1 mat-dialog-title class="modelTitle">Add a Team</h1>
+    <div mat-dialog-content class="modelContent">
+        <form>
+            <div class="form-row">
+                <input type="password" class="form-control" placeholder="Enter Team Name" name="teamName"
+                    [(ngModel)]="teamName">
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="modelButton" (click)="onNoClick()" cdkFocusInitial>Add</button>
+        <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    </div>
+</div>
+
+
+<div style="text-align: center" *ngIf="data['mode']=='addMatch'">
+    <h1 mat-dialog-title class="modelTitle">Add a Match</h1>
+    <div mat-dialog-content class="modelContent">
+        <form>
+            <div class="form-row">
+                <input type="password" class="form-control" placeholder="Enter Match Name" name="matchName"
+                    [(ngModel)]="matchName">
+            </div>
+            <div class="form-row">
+                <input type="password" class="form-control" placeholder="Enter Team Name 1" name="TeamName1"
+                    [(ngModel)]="TeamName1">
+            </div>
+            <div class="form-row">
+                <input type="password" class="form-control" placeholder="Enter Team Name 2" name="TeamName2"
+                    [(ngModel)]="TeamName2">
+            </div>
+
+        </form>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="modelButton" (click)="onNoClick()" cdkFocusInitial>Add</button>
+        <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+    </div>
+</div>

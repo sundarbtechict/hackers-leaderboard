@@ -1,0 +1,14 @@
+table{
+    width: 100%;
+}
+tr.mat-header-row{
+    background-color: #C5CAE9   ;
+}
+
+.searchBlock{
+    background-color: lightgrey;
+    padding: 15px;
+    display: flex;
+    width: 100%;
+}
+
