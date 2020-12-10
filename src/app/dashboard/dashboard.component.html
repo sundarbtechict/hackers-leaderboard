@@ -1,6 +1,79 @@
-<div class="container">
+<!-- Main -->
+<div class="app-main-container">
+    <h2 class="module-title"> Leaderboard</h2>
 
-    <div class="searchBlock">
+    <div class="toolbar" matPrefix>
+
+        <div>
+            <span>Search By:</span>
+            <mat-radio-group color="primary" [(ngModel)]="searchValue">
+                <mat-radio-button value="Name" class="toolbar-action">Team</mat-radio-button>
+                <mat-radio-button value="Score" class="toolbar-action">Score</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <mat-form-field appearance="standard" class="toolbar-action">
+            <input matInput placeholder="Search" [(ngModel)]="searchBy">
+            <mat-icon matSuffix (click)="search()">search</mat-icon>
+        </mat-form-field>
+
+        <span class="spacer"></span>
+
+        <button mat-raised-button color="primary" class="toolbar-action" (click)="openAddTeamDialog()">
+            Add Team
+        </button>
+        <button mat-raised-button class="toolbar-action" (click)="openAddMatchDialog()">
+            Add Match
+        </button>
+
+        <div class="toolbar-action">
+            <button mat-raised-button [matMenuTriggerFor]="beforeMenu">
+                <span>SortBy: {{sortBy}}</span>
+                <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #beforeMenu="matMenu" xPosition="before">
+                <button mat-menu-item (click)="sort('Name')">Name</button>
+                <button mat-menu-item (click)="sort('Score')">Score</button>
+            </mat-menu>
+        </div>
+    </div>
+
+
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+        <!-- Position Column -->""
+        <ng-container *ngFor="let item of keyColumns let i=index" [matColumnDef]="item">
+            <th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[item]}} </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="keyColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: keyColumns;"></tr>
+    </table>
+
+    <div class="paginatorBlk">
+        <label for="pageSize">Page Size</label>
+        <select class="form-control" id="pageSize" [(ngModel)]="pageSize" style="width: 100px;margin-left: 20px;">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
+        <button type="button" mat-raised-button (click)="getPrevious()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <button type="button" mat-raised-button (click)="getNext()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+
+
+</div>
+
+
+
+<!-- <div class="searchBlock">
         <div class="col-sm-3">
             <mat-form-field appearance="fill">
                 <mat-label>Sort By</mat-label>
@@ -34,40 +107,4 @@
                 </button>
             </mat-form-field>
         </div>
-    </div>
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-        <!-- Position Column -->""
-        <ng-container *ngFor="let item of keyColumns let i=index" [matColumnDef]="item">
-            <th mat-header-cell *matHeaderCellDef> {{displayedColumns[i]}} </th>
-            <td mat-cell *matCellDef="let element"> {{element[item]}} </td>
-        </ng-container>
-
-
-        <tr mat-header-row *matHeaderRowDef="keyColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: keyColumns;"></tr>
-    </table>
-
-    <div class="col-sm-12 row" style="margin-top: 20px;">
-        <div class="col-sm-3">
-            <div class="form-row">
-                <label for="pageSize">Page Size</label>
-                <select class="form-control" id="pageSize" [(ngModel)]="pageSize"
-                    style="width: 100px;margin-left: 20px;">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <button type="button" class="btn btn-primary" (click)="getPrevious()">Previous</button>
-        </div>
-        <div class="col-sm-2">
-            <button type="button" class="btn btn-primary" (click)="getNext()">Next</button>
-        </div>
-    </div>
-
-</div>
+    </div> -->

@@ -1,7 +1,10 @@
 .modelContent input, .modelContent select{
-    margin-left: 15px;
+    margin: 0 auto;
     margin-bottom: 10px;
-    width: 70%;
+    width: 60%;
+}
+.modelContent label{
+    width: 35%;
 }
 .modelContent .form-row{
     margin: 5px 10px;

@@ -2,7 +2,19 @@ table{
     width: 100%;
 }
 tr.mat-header-row{
-    background-color: #C5CAE9   ;
+    /* background-color: #C5CAE9   ; */
+}
+
+.paginatorBlk{
+    padding: 15px 0;
+    display: flex;
+    width: 30%;
+    margin-left: auto;
+    justify-content: space-between;
+}
+
+.paginatorBlk label{
+    padding-top: 5px;
 }
 
 .searchBlock{

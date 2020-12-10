@@ -38,6 +38,7 @@ export class ModalComponent implements OnInit {
     if (this.data['mode'] == 'addMatch') {
       this.sharedService.getData("teams?pageNo=1&pageSize=500").subscribe((response: any) => {
         this.options = response;
+        this.TeamName2 = this.TeamName1 = response[0]._id;
         console.log(response);
       });
     }

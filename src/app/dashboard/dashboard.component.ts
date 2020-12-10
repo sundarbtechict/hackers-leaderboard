@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { MatDialog } from '@angular/material/dialog';
+import { FormControl } from "@angular/forms";
 import { ModalComponent } from '../components/modal/modal.component';
 
 export interface team {
@@ -20,31 +21,25 @@ export interface team {
 })
 export class DashboardComponent implements OnInit {
 
+  floatLabelControl = new FormControl("1");
+
   pageNo = 1;
   pageSize = "10";
 
   keyColumns: string[] = ['team_name', 'matches', 'wins', 'losses', 'ties', 'score'];
   displayedColumns: string[] = ['Teams', 'Matches', 'Wins', 'Losses', 'Ties', 'Scores'];
   dataSource = [];
-  searchInput = '';
-  sortBy = [
-    { value: 'name', viewValue: 'Teams' },
-    { value: 'score', viewValue: 'Scores' }
-  ];
-  sortValue = '';
-  searchBy = [
-    { value: 'name', viewValue: 'Team' },
-    { value: 'score', viewValue: 'Score' }
-  ];
+  searchBy = '';
+  sortBy = '';
   searchValue = '';
 
-  constructor(private sharedService: SharedService, private dialog: MatDialog,) { }
+  constructor(private sharedService: SharedService, private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
-    this.sortValue = 'score';
-    this.searchValue = 'name';
-    this.searchInput = '';
+    this.sortBy = 'Score';
+    this.searchBy = 'Name';
+    this.searchValue = '';
     this.getTeamList();
   }
 
@@ -60,10 +55,10 @@ export class DashboardComponent implements OnInit {
   search() {
     let query = '';
     this.openDialog('hi');
-    if (this.searchValue == 'score')
-      query = '?score=' + this.searchInput;
-    else if (this.searchValue == 'name')
-      query = '?name=' + this.searchInput
+    if (this.searchValue == 'Score')
+      query = '?score=' + this.searchBy;
+    else if (this.searchValue == 'Name')
+      query = '?name=' + this.searchBy
     this.sharedService.getData("teams" + query).subscribe((response: any) => {
       this.dataSource = response;
       console.log(response);
@@ -76,7 +71,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPrevious() {
-    if ((this.pageNo - 1) > 1) {
+    if ((this.pageNo - 1) > 0) {
       --this.pageNo;
       this.getTeamList();
     }
@@ -123,7 +118,7 @@ export class DashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      //if (result.action == 'addMatch')
+      result.action == 'addMatch' && this.addMatch(result.data);
     });
   }
 
@@ -132,6 +127,7 @@ export class DashboardComponent implements OnInit {
     this.sharedService.postData("team", input).subscribe(
       (response: any) => {
         console.log(response);
+        this.getTeamList();
       });
   }
   addMatch(data) {
@@ -139,7 +135,15 @@ export class DashboardComponent implements OnInit {
     this.sharedService.patchData("pairteam", input).subscribe(
       (response: any) => {
         console.log(response);
+        this.getTeamList();
       });
+  }
+  sort(value) {
+    this.sortBy = value;
+    if (value == 'Name')
+      this.dataSource = [...this.dataSource.sort((a, b) => (a.team_name > b.team_name) ? 1 : ((b.team_name > a.team_name) ? -1 : 0))];
+    else
+      this.getTeamList();
   }
 
 }

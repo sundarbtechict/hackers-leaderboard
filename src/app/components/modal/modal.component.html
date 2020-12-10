@@ -39,18 +39,18 @@
             <div class="form-row">
                 <label>Team 1</label>
                 <select class="form-control" id="TeamName1" name="TeamName1" [(ngModel)]="TeamName1">
-                    <option *ngFor="let item of options" value="item._id"> {{item.team_name}}</option>
+                    <option *ngFor="let item of options" [value]="item._id"> {{item.team_name}}</option>
                 </select>
 
             </div>
             <div class="form-row">
                 <label>Team 2</label>
                 <select class="form-control" id="TeamName2" name="TeamName2" [(ngModel)]="TeamName2">
-                    <option *ngFor="let item of options" value="item._id"> {{item.team_name}}</option>
+                    <option *ngFor="let item of options" [value]="item._id"> {{item.team_name}}</option>
                 </select>
             </div>
             <div class="form-row">
-                <label style="margin-right: 20px;">Winner</label>
+                <label>Winner</label>
                 <mat-button-toggle-group name="fontStyle" aria-label="Font Style" >
                     <mat-button-toggle value="" (click)="setWinner('team1')">
                         Team 1

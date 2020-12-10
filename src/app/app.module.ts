@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 
 
 @NgModule({
@@ -30,7 +31,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
   ],
   entryComponents: [ModalComponent],
-  providers: [],
+  providers: [{
+    provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+    useValue: { appearance: "fill" }
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
