@@ -13,10 +13,15 @@ import { environment } from '../environments/environment'
 })
 export class SharedService {
   serviceAddress = environment.serviceURL;
+  private popup = new Subject();
+  $popup = this.popup.asObservable();
+
   constructor(private http: HttpClient,
     private dialog: MatDialog,
     private router: Router) {
   }
+
+
 
 
   postData(methodName, Input) {
@@ -45,22 +50,15 @@ export class SharedService {
     return (error: any): Observable<T> => {
       //  alert(error.statusText);
 
-      if (error.status === 401) {
-        // this.spinnerStatus.next(false)
-        //this.openDialog("Your Session Expired");
+      if (error.status === 400) {
+        this.popup.next(error.error.message);
       }
       else if (error.status === 500) {
-        //this.spinnerStatus.next(false)
+        this.popup.next(error.error.message);
         //this.openDialog("Unable to Process request!!");
       }
-      else if (error.status === 204) {
-        //this.spinnerStatus.next(false)
-        //this.openDialog("No Data Found!!");
-      }
       else {
-        //is.spinnerStatus.next(false)
-        //this.text = error.error.text;
-        //this.openDialog(this.text);
+        this.popup.next(error.error.message);
       }
       return;
     };

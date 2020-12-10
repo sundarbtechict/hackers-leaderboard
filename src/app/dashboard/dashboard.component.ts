@@ -39,6 +39,9 @@ export class DashboardComponent implements OnInit {
     this.searchBy = 'Name';
     this.searchValue = '';
     this.getTeamList();
+    this.sharedService.$popup.subscribe((data) => {
+      this.openDialog(data);
+    })
   }
 
   getTeamList() {
@@ -124,8 +127,7 @@ export class DashboardComponent implements OnInit {
     this.sharedService.postData("team", input).subscribe(
       (response: any) => {
         console.log(response);
-        if (response.message)
-          this.openDialog('response.message');
+        this.openDialog('Team added Successfully');
         this.getTeamList();
       });
   }
@@ -134,8 +136,7 @@ export class DashboardComponent implements OnInit {
     this.sharedService.patchData("pairteam", input).subscribe(
       (response: any) => {
         console.log(response);
-        if (response.message)
-          this.openDialog('response.message');
+        this.openDialog('Match added Successfully');
         this.getTeamList();
       });
   }
