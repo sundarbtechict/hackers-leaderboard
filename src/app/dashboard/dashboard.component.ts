@@ -21,8 +21,6 @@ export interface team {
 })
 export class DashboardComponent implements OnInit {
 
-  floatLabelControl = new FormControl("1");
-
   pageNo = 1;
   pageSize = "10";
 
@@ -54,11 +52,10 @@ export class DashboardComponent implements OnInit {
 
   search() {
     let query = '';
-    this.openDialog('hi');
-    if (this.searchValue == 'Score')
-      query = '?score=' + this.searchBy;
-    else if (this.searchValue == 'Name')
-      query = '?name=' + this.searchBy
+    if (this.searchBy == 'Score')
+      query = '?score=' + this.searchValue;
+    else if (this.searchBy == 'Name')
+      query = '?name=' + this.searchValue
     this.sharedService.getData("teams" + query).subscribe((response: any) => {
       this.dataSource = response;
       console.log(response);

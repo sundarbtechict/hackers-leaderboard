@@ -6,13 +6,13 @@
 
         <div>
             <span>Search By:</span>
-            <mat-radio-group color="primary" [(ngModel)]="searchValue">
+            <mat-radio-group color="primary" [(ngModel)]="searchBy">
                 <mat-radio-button value="Name" class="toolbar-action">Team</mat-radio-button>
                 <mat-radio-button value="Score" class="toolbar-action">Score</mat-radio-button>
             </mat-radio-group>
         </div>
         <mat-form-field appearance="standard" class="toolbar-action">
-            <input matInput placeholder="Search" [(ngModel)]="searchBy">
+            <input matInput placeholder="Search" [(ngModel)]="searchValue">
             <mat-icon matSuffix (click)="search()">search</mat-icon>
         </mat-form-field>
 
@@ -54,7 +54,8 @@
 
     <div class="paginatorBlk">
         <label for="pageSize">Page Size</label>
-        <select class="form-control" id="pageSize" [(ngModel)]="pageSize" style="width: 100px;margin-left: 20px;">
+        <select class="form-control" id="pageSize" [(ngModel)]="pageSize" style="width: 100px;"
+            (change)='getTeamList()'>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
