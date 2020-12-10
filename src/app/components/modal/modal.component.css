@@ -1,5 +1,8 @@
-.modelContent input{
-    width: 85%;
-    margin: 0 auto;
+.modelContent input, .modelContent select{
+    margin-left: 15px;
     margin-bottom: 10px;
+    width: 70%;
+}
+.modelContent .form-row{
+    margin: 5px 10px;
 }

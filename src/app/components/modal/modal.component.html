@@ -1,5 +1,5 @@
 <div style="text-align: center" *ngIf="data['mode']=='message'">
-    <h1 mat-dialog-title class="modelTitle">Paring Team</h1>
+    <h1 mat-dialog-title class="modelTitle">LeaderBaord</h1>
     <div mat-dialog-content class="modelContent">
         <p>{{data['value']}}</p>
     </div>
@@ -15,7 +15,7 @@
     <div mat-dialog-content class="modelContent">
         <form>
             <div class="form-row">
-                <input type="password" class="form-control" placeholder="Enter Team Name" name="teamName"
+                <input type="text" class="form-control" placeholder="Enter Team Name" name="teamName"
                     [(ngModel)]="teamName">
             </div>
         </form>
@@ -32,22 +32,42 @@
     <div mat-dialog-content class="modelContent">
         <form>
             <div class="form-row">
-                <input type="password" class="form-control" placeholder="Enter Match Name" name="matchName"
+                <label>Match Name</label>
+                <input type="text" class="form-control" placeholder="Enter Match Name" name="matchName"
                     [(ngModel)]="matchName">
             </div>
             <div class="form-row">
-                <input type="password" class="form-control" placeholder="Enter Team Name 1" name="TeamName1"
-                    [(ngModel)]="TeamName1">
+                <label>Team 1</label>
+                <select class="form-control" id="TeamName1" name="TeamName1" [(ngModel)]="TeamName1">
+                    <option *ngFor="let item of options" value="item._id"> {{item.team_name}}</option>
+                </select>
+
             </div>
             <div class="form-row">
-                <input type="password" class="form-control" placeholder="Enter Team Name 2" name="TeamName2"
-                    [(ngModel)]="TeamName2">
+                <label>Team 2</label>
+                <select class="form-control" id="TeamName2" name="TeamName2" [(ngModel)]="TeamName2">
+                    <option *ngFor="let item of options" value="item._id"> {{item.team_name}}</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label style="margin-right: 20px;">Winner</label>
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style" >
+                    <mat-button-toggle value="" (click)="setWinner('team1')">
+                        Team 1
+                    </mat-button-toggle>
+                    <mat-button-toggle value="" (click)="setWinner('team2')">
+                        Team 2
+                    </mat-button-toggle>
+                    <mat-button-toggle value="" (click)="setWinner('tie')">
+                        Tie
+                    </mat-button-toggle>
+                </mat-button-toggle-group>
             </div>
 
         </form>
     </div>
     <div mat-dialog-actions>
-        <button mat-button class="modelButton" (click)="onNoClick()" cdkFocusInitial>Add</button>
+        <button mat-button class="modelButton" (click)="onNoClick()" cdkFocusInitial>Submit</button>
         <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
     </div>
 </div>

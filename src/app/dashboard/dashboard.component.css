@@ -6,8 +6,7 @@ tr.mat-header-row{
 }
 
 .searchBlock{
-    background-color: lightgrey;
-    padding: 15px;
+    padding: 10px;
     display: flex;
     width: 100%;
 }

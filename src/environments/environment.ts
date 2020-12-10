@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serviceURL: "http://localhost:8080/"
+  serviceURL: "https://hackers-leaderboard-api.herokuapp.com/"
 };
 
 /*

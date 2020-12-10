@@ -12,8 +12,8 @@
             </mat-form-field>
         </div>
         <div class="col-sm-3">
-            <button (click)="openAddTeamDialog()">add team</button>
-            <button (click)="openAddMatchDialog()">add match</button>
+            <button (click)="openAddTeamDialog()" class="btn btn-primary" style="margin-right:20px">add team</button>
+            <button (click)="openAddMatchDialog()" class="btn btn-primary">add match</button>
         </div>
         <div class="col-sm-3">
             <mat-form-field appearance="fill">
@@ -49,8 +49,25 @@
         <tr mat-row *matRowDef="let row; columns: keyColumns;"></tr>
     </table>
 
-    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-        (page)="pageEvent = $event">
-    </mat-paginator>
+    <div class="col-sm-12 row" style="margin-top: 20px;">
+        <div class="col-sm-3">
+            <div class="form-row">
+                <label for="pageSize">Page Size</label>
+                <select class="form-control" id="pageSize" [(ngModel)]="pageSize"
+                    style="width: 100px;margin-left: 20px;">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary" (click)="getPrevious()">Previous</button>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-primary" (click)="getNext()">Next</button>
+        </div>
+    </div>
 
 </div>

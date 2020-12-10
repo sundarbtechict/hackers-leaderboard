@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../components/modal/modal.component';
-import { PageEvent } from '@angular/material/paginator';
 
 export interface team {
   team_name: string;
@@ -21,10 +20,8 @@ export interface team {
 })
 export class DashboardComponent implements OnInit {
 
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
-  pageEvent: PageEvent;
+  pageNo = 1;
+  pageSize = "10";
 
   keyColumns: string[] = ['team_name', 'matches', 'wins', 'losses', 'ties', 'score'];
   displayedColumns: string[] = ['Teams', 'Matches', 'Wins', 'Losses', 'Ties', 'Scores'];
@@ -52,17 +49,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getTeamList() {
-    this.sharedService.getData("teams").subscribe((response: any) => {
+    this.sharedService.getData("teams?pageNo=" + this.pageNo + "&pageSize=" + this.pageSize).subscribe((response: any) => {
       this.dataSource = response;
       console.log(response);
     });
   }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
-  }
+
 
   search() {
     let query = '';
@@ -77,6 +70,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getNext() {
+    ++this.pageNo;
+    this.getTeamList();
+  }
+
+  getPrevious() {
+    if ((this.pageNo - 1) > 1) {
+      --this.pageNo;
+      this.getTeamList();
+    }
+  }
+
   openDialog(Msg): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
@@ -88,7 +93,9 @@ export class DashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      dialogRef.afterClosed().subscribe(result => {
+        result.action == 'addTeam' && this.addMatch(result.data);
+      });
     });
   }
   openAddTeamDialog(): void {
@@ -108,7 +115,7 @@ export class DashboardComponent implements OnInit {
   openAddMatchDialog(): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
-      height: '300px',
+      height: '400px',
       data: {
         value: '',
         mode: 'addMatch'
@@ -123,6 +130,13 @@ export class DashboardComponent implements OnInit {
   addTeam(data) {
     let input = data;
     this.sharedService.postData("team", input).subscribe(
+      (response: any) => {
+        console.log(response);
+      });
+  }
+  addMatch(data) {
+    let input = data;
+    this.sharedService.patchData("pairteam", input).subscribe(
       (response: any) => {
         console.log(response);
       });

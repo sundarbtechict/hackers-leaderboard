@@ -25,6 +25,12 @@ export class SharedService {
     return this.http.post(url, Input)
       .pipe(catchError(this.handleError()));
   }
+  patchData(methodName, Input) {
+    const url = this.serviceAddress + methodName;
+
+    return this.http.patch(url, Input)
+      .pipe(catchError(this.handleError()));
+  }
   getData(methodName) {
     const url = this.serviceAddress + methodName;
 
