@@ -12,8 +12,8 @@
             </mat-radio-group>
         </div>
         <mat-form-field appearance="standard" class="toolbar-action">
-            <input matInput placeholder="Search" [(ngModel)]="searchValue">
-            <mat-icon matSuffix (click)="search()">search</mat-icon>
+            <input matInput placeholder="Search" [(ngModel)]="searchValue" (keyup)="search()">
+            <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
         <span class="spacer"></span>
@@ -52,19 +52,19 @@
         <tr mat-row *matRowDef="let row; columns: keyColumns;"></tr>
     </table>
 
-    <div class="paginatorBlk">
-        <label for="pageSize">Page Size</label>
-        <select class="form-control" id="pageSize" [(ngModel)]="pageSize" style="width: 100px;"
+    <div class="paginator">
+        <span for="pageSize" class="paginator-action">Page Size</span>
+        <select class="form-control paginator-action" id="pageSize" [(ngModel)]="pageSize" style="width: 100px;"
             (change)='getTeamList()'>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
         </select>
-        <button type="button" mat-raised-button (click)="getPrevious()">
+        <button type="button" mat-raised-button (click)="getPrevious()" class="paginator-action">
             <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
-        <button type="button" mat-raised-button (click)="getNext()">
+        <button type="button" mat-raised-button (click)="getNext()" class="paginator-action">
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
     </div>

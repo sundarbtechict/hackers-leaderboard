@@ -5,16 +5,17 @@ tr.mat-header-row{
     /* background-color: #C5CAE9   ; */
 }
 
-.paginatorBlk{
-    padding: 15px 0;
+.paginator{
     display: flex;
-    width: 30%;
-    margin-left: auto;
-    justify-content: space-between;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
-.paginatorBlk label{
-    padding-top: 5px;
+.paginator .paginator-action{
+    margin-left: 5px;
 }
 
 .searchBlock{
