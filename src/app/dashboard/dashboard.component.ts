@@ -79,7 +79,7 @@ export class DashboardComponent implements OnInit {
       width: '500px',
       height: '180px',
       data: {
-        value: '',
+        value: Msg,
         mode: 'message'
       }
     });
@@ -124,6 +124,8 @@ export class DashboardComponent implements OnInit {
     this.sharedService.postData("team", input).subscribe(
       (response: any) => {
         console.log(response);
+        if (response.message)
+          this.openDialog('response.message');
         this.getTeamList();
       });
   }
@@ -132,6 +134,8 @@ export class DashboardComponent implements OnInit {
     this.sharedService.patchData("pairteam", input).subscribe(
       (response: any) => {
         console.log(response);
+        if (response.message)
+          this.openDialog('response.message');
         this.getTeamList();
       });
   }
